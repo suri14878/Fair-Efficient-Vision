@@ -54,35 +54,38 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 ## Hyperparameters
 
 ### Teacher and Student Models
+
 | Hyperparameter              | Teacher Model (ViT-Large) | Student Model (ViT-Base) |
 |-----------------------------|---------------------------|---------------------------|
-| Input Size                  | 200×200                   | 200×200                   |
-| Batch Size                  | 64                        | 40                        |
-| Epochs                      | 100                       | 100                       |
-| Learning Rate               | 5e-3                      | 1e-3                      |
-| Weight Decay                | 0.05                      | 0.02                      |
-| Layer-wise LR Decay         | 0.65                      | 0.5                       |
-| Drop Path Rate              | 0.15                      | 0.1                       |
+| **Input Size**                 | 200×200                   | 200×200                   |
+| **Batch Size**                  | 64                        | 40                        |
+| **Epochs**                      | 100                       | 100                       |
+| **Learning Rate**               | 5e-3                      | 1e-3                      |
+| **Weight Decay**                | 0.05                      | 0.02                      |
+| **Layer-wise LR Decay**         | 0.65                      | 0.5                       |
+| **Drop Path Rate**              | 0.15                      | 0.1                       |
 
 ### Post-Processing Fairness
+
 | Hyperparameter              | Value                     |
 |-----------------------------|---------------------------|
-| Graph Construction          | Cosine Similarity         |
-| Laplacian Regularization (λ)| 0.001                     |
-| Scaling Factor (θ)          | No Disease: 0.001, Glaucoma: 0.002, DR: 0.015 |
-| Distance Threshold (τ)      | No Disease: 0.8, Glaucoma: 1.1, DR: 1.4 |
+| **Graph Construction**          | Cosine Similarity         |
+| **Laplacian Regularization (λ)**| 0.001                     |
+| **Scaling Factor (θ)**          | No Disease: 0.001, Glaucoma: 0.002, DR: 0.015 |
+| **Distance Threshold (τ)**      | No Disease: 0.8, Glaucoma: 1.1, DR: 1.4 |
 
 ---
 
 ## Results
 
 ### Performance Metrics
+<div align="center">
 | Method                      | AUROC  | Comments                              |
 |-----------------------------|--------|---------------------------------------|
-| RETFound (Teacher)          | 81.0%  | Strong baseline without fairness      |
-| ViT-Base (Student)          | 85.5%  | Efficient student model               |
-| Fair Student Model          | 87.6%  | Fair, efficient student model         |
-
+| **RETFound (Teacher)**          | 81.0%  | Strong baseline without fairness      |
+| **ViT-Base (Student)**          | 85.5%  | Efficient student model               |
+| **Fair Student Model**          | 87.6%  | Fair, efficient student model         |
+</div>
 
 ### Attribute-Specific Results
 | **Attribute**        | **Value**        | **Student Model (Unfair)** | **Fair Student Model** |
@@ -103,7 +106,6 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 | **Language**     | **English**  | 0.8571                 | 0.8759              |
 |                  | **Spanish**  | 0.756                  | 0.771               |
 |                  | **Other**    | 0.861                  | 0.879               |
-
 ---
 ## Acknowledgements
 
@@ -137,10 +139,10 @@ These papers provided valuable techniques and methodologies that were essential 
 
 If you use this project, please cite as follows:
 
-Noor, Awaiz, Hassan, Zohaib, & Kumar, Surender . (2024). *FAIR-EFFICIENT-VISION: Efficient and Fair Detection of Glaucoma & Diabetic Retinopathy*. GitHub. Retrieved from https://github.com/Awaiz27/Fair-Efficient-Vision
+Noor, Awaiz, Hassan, Zohaib, & Kumar, Surender . (2024). **FAIR-EFFICIENT-VISION: Efficient and Fair Detection of Glaucoma & Diabetic Retinopathy**. GitHub. Retrieved from https://github.com/Awaiz27/Fair-Efficient-Vision
 
 ## License
 
-This project is licensed under the Apache License 2.0 -
+This project is licensed under the Apache License 2.0.
 
 
