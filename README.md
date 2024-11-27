@@ -4,6 +4,8 @@
 
 This project focuses on leveraging Vision Transformer (ViT) models for the detection of retinal diseases, specifically glaucoma and diabetic retinopathy (DR). While achieving high diagnostic performance, the project also addresses fairness concerns to mitigate biases based on sensitive demographic factors (e.g., race, gender, ethnicity, language, marital status). The methodology integrates knowledge distillation and post-processing fairness techniques to ensure equitable outcomes across diverse populations.
 
+---
+
 ## Objectives
 
 1. **Model Performance**:
@@ -15,6 +17,7 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
    - Apply post-processing fairness methods to reduce biases across demographic attributes.
    - Evaluate model fairness and performance trade-offs to ensure equitable and reliable predictions.
 
+---
 
 ## Methodology
 
@@ -33,6 +36,8 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 - **Goal**: Treat similar individuals equitably and reduce disparities across demographic groups.
 - **Fairness Metrics**: Address biases in Race, Gender, Language, Marital Status, and Ethnicity.
 
+---
+
 ## Dataset Description
 
 ### 1. **Diabetic Retinopathy (DR)**
@@ -43,6 +48,8 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 ### 2. **Glaucoma**
 - **Subjects**: 10,000
 - **Case Distribution**: 48.7% Glaucoma, 51.3% Normal.
+
+---
 
 ## Hyperparameters
 
@@ -72,6 +79,8 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 | **Distance Threshold (τ)**      | No Disease: 0.8, Glaucoma: 1.1, DR: 1.4 |
 
 </div>
+
+---
 
 ## Results
 
@@ -111,6 +120,8 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 
 </div>
 
+---
+
 ## Acknowledgements
 
 We would like to express our sincere gratitude to the following papers and their authors for their valuable contributions that greatly influenced and helped make this project possible:
@@ -137,12 +148,15 @@ We would like to express our sincere gratitude to the following papers and their
 
 These papers provided valuable techniques and methodologies that were essential in developing a fair and efficient model for detecting glaucoma and diabetic retinopathy. We are grateful for their contributions to the field of fair machine learning and medical image analysis.
 
+---
 
 ## Citation
 
 If you use this project, please cite as follows:
 
 Noor, Awaiz, Hassan, Zohaib, & Kumar, Surender . (2024). **FAIR-EFFICIENT-VISION: Efficient and Fair Detection of Glaucoma & Diabetic Retinopathy**. GitHub. Retrieved from https://github.com/Awaiz27/Fair-Efficient-Vision
+
+---
 
 ## License
 
