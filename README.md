@@ -64,7 +64,12 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 | **Weight Decay**                | 0.05                      | 0.02                      |
 | **Layer-wise LR Decay**         | 0.65                      | 0.5                       |
 | **Drop Path Rate**              | 0.15                      | 0.1                       |
+<<<<<<< HEAD
 
+### Post-Processing Fairness
+
+=======
+</div>
 ### Post-Processing Fairness
 
 | Hyperparameter              | Value                     |
@@ -88,6 +93,7 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 </div>
 
 ### Attribute-Specific Results
+<div align="center">
 | **Attribute**        | **Value**        | **Student Model (Unfair)** | **Fair Student Model** |
 |------------------|--------------|------------------------|---------------------|
 | **Race**         | **Asian**    | 0.877                  | 0.894               |
@@ -106,6 +112,7 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 | **Language**     | **English**  | 0.8571                 | 0.8759              |
 |                  | **Spanish**  | 0.756                  | 0.771               |
 |                  | **Other**    | 0.861                  | 0.879               |
+
 ---
 ## Acknowledgements
 
