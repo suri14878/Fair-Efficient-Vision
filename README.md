@@ -40,10 +40,11 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 
 ## Dataset Description
 
+We would like to express our gratitude to the **Harvard Ophthalmology AI Lab** for providing the dataset used in this project. Their invaluable contribution made it possible for us to work on these important medical image detection tasks.
+
 ### 1. **Diabetic Retinopathy (DR)**
 - **Subjects**: 10,000
 - **Case Distribution**: 90.9% Non-vision-threatening, 9.1% Vision-threatening.
-
 
 ### 2. **Glaucoma**
 - **Subjects**: 10,000
