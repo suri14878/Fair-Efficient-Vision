@@ -56,8 +56,8 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 ### Teacher and Student Models
 <div align="center">
 
-|        Hyperparameter           |     Teacher Model (ViT-Large) | Student Model (ViT-Base) |
-|-------------------------------------------------------------|---------------------------|
+|        Hyperparameter           | Teacher Model (ViT-Large) | Student Model (ViT-Base) |
+|---------------------------------|---------------------------|---------------------------|
 | **Input Size**                  |        200×200            |           200×200         |
 | **Batch Size**                  |          64               |             40            |
 | **Epochs**                      |          100              |            100            |
