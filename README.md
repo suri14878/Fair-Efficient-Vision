@@ -54,23 +54,22 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 ## Hyperparameters
 
 ### Teacher and Student Models
+<div align="center">
 
-| Hyperparameter              | Teacher Model (ViT-Large) | Student Model (ViT-Base) |
-|-----------------------------|---------------------------|---------------------------|
-| **Input Size**                 | 200×200                   | 200×200                   |
-| **Batch Size**                  | 64                        | 40                        |
-| **Epochs**                      | 100                       | 100                       |
-| **Learning Rate**               | 5e-3                      | 1e-3                      |
-| **Weight Decay**                | 0.05                      | 0.02                      |
-| **Layer-wise LR Decay**         | 0.65                      | 0.5                       |
-| **Drop Path Rate**              | 0.15                      | 0.1                       |
-<<<<<<< HEAD
+|        Hyperparameter           |     Teacher Model (ViT-Large) | Student Model (ViT-Base) |
+|-------------------------------------------------------------|---------------------------|
+| **Input Size**                  |        200×200            |           200×200         |
+| **Batch Size**                  |          64               |             40            |
+| **Epochs**                      |          100              |            100            |
+| **Learning Rate**               |         5e-3              |            1e-3           |
+| **Weight Decay**                |         0.05              |            0.02           |
+| **Layer-wise LR Decay**         |         0.65              |            0.5            |
+| **Drop Path Rate**              |         0.15              |            0.1            |
 
-### Post-Processing Fairness
-
-=======
 </div>
+
 ### Post-Processing Fairness
+<div align="center">
 
 | Hyperparameter              | Value                     |
 |-----------------------------|---------------------------|
@@ -79,21 +78,26 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 | **Scaling Factor (θ)**          | No Disease: 0.001, Glaucoma: 0.002, DR: 0.015 |
 | **Distance Threshold (τ)**      | No Disease: 0.8, Glaucoma: 1.1, DR: 1.4 |
 
+</div>
 ---
 
 ## Results
 
 ### Performance Metrics
 <div align="center">
+
 | Method                      | AUROC  | Comments                              |
 |-----------------------------|--------|---------------------------------------|
 | **RETFound (Teacher)**          | 81.0%  | Strong baseline without fairness      |
 | **ViT-Base (Student)**          | 85.5%  | Efficient student model               |
 | **Fair Student Model**          | 87.6%  | Fair, efficient student model         |
+
 </div>
 
 ### Attribute-Specific Results
 <div align="center">
+
+
 | **Attribute**        | **Value**        | **Student Model (Unfair)** | **Fair Student Model** |
 |------------------|--------------|------------------------|---------------------|
 | **Race**         | **Asian**    | 0.877                  | 0.894               |
@@ -113,7 +117,9 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 |                  | **Spanish**  | 0.756                  | 0.771               |
 |                  | **Other**    | 0.861                  | 0.879               |
 
+</div>
 ---
+
 ## Acknowledgements
 
 We would like to express our sincere gratitude to the following papers and their authors for their valuable contributions that greatly influenced and helped make this project possible:
