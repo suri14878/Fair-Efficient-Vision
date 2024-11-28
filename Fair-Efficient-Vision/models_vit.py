@@ -29,47 +29,8 @@ class VisionTransformer(timm.models.vision_transformer.VisionTransformer):
             embed_dim = kwargs['embed_dim']
             self.fc_norm = norm_layer(embed_dim)
             print(self.norm)
-            del self.norm  # remove the original norm
-#     def forward_features(self, x):
-#         B = x.shape[0]
-#         x = self.patch_embed(x)
-        
-#         # Ensure patch_embed returns only the tensor
-#         if isinstance(x, tuple):
-#             print('tuple')
-#             x, _ = x  # Unpack if it's a tuple
-    
-#         # Debugging patch_embed output
-#         print(f'patch_embed output: {x} of type {type(x)}')
+            del self.norm 
 
-#         cls_tokens = self.cls_token.expand(B, -1, -1)  # Expand CLS tokens
-#         print(f'cls_token expanded: {cls_tokens.shape}')
-#         x = torch.cat((cls_tokens, x), dim=1)  # Concatenate CLS token
-#         print(f'After concatenation: {x.shape}')
-
-#         x = x + self.pos_embed  # Add position embedding
-#         x = self.pos_drop(x)  # Dropout
-
-#         for blk in self.blocks:
-#             x = blk(x)  # Pass through transformer blocks
-#             print(f'After block: {x.shape}')
-
-#         logit = x[:, 1:, :]  # Exclude CLS token from logits
-
-#         if self.global_pool:
-#             print(f'Before global pool: {x.shape}')
-#             x = x[:, 1:, :].mean(dim=1)  # Global pool without CLS token
-#             print('Global Pool without CLS Token')
-#             outcome = self.fc_norm(x)
-#         else:
-#             x = self.norm(x)
-#             outcome = x[:, 0]  # Use the first token (CLS) for classification
-
-#         # Ensure both are tensors before returning
-#         print(f'logit shape: {logit.shape}')
-#         print(f'outcome shape: {outcome.shape}')
-
-#         return outcome, logit
     def forward_features(self, x):
         B = x.shape[0]
         x = self.patch_embed(x)
@@ -101,7 +62,7 @@ class VisionTransformer(timm.models.vision_transformer.VisionTransformer):
     
     def get_spatial_feature_maps(self, x):
         B = x.shape[0]
-        x = self.patch_embed(x)  # Shape: [B, num_patches, embed_dim]
+        x = self.patch_embed(x)  
 
         if isinstance(x, tuple):
             x = x[0]
@@ -116,9 +77,7 @@ class VisionTransformer(timm.models.vision_transformer.VisionTransformer):
         x = self.forward_features(x)
         logit = x.clone()
         if self.embed_dim > 768:
-#             print("Mapping down to 768")
             logit = self.project_layer(logit)
-#         x = self.pool(x)
         x = self.fc_norm(x)
         x = self.head_drop(x)
         x=self.head(x)

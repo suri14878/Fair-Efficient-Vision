@@ -14,8 +14,6 @@ from pathlib import Path
 import torch
 import torch.backends.cudnn as cudnn
 from torch.utils.tensorboard import SummaryWriter
-import timm
-# assert timm.__version__ == "0.3.2" # version check
 from timm.models.layers import trunc_normal_
 from timm.data.mixup import Mixup
 from timm.loss import LabelSmoothingCrossEntropy, SoftTargetCrossEntropy
@@ -101,9 +99,9 @@ def get_args_parser():
                         help='How to apply mixup/cutmix params. Per "batch", "pair", or "elem"')
 
     # * Finetuning params
-    parser.add_argument('--finetune', default='/minshi/medailab/datamining/AwaizN/Model_Weights/RETFound_cfp_weights.pth',type=str,
+    parser.add_argument('--finetune', default='./RETFound_cfp_weights.pth',type=str,
                         help='finetune from checkpoint')
-    parser.add_argument('--task', default='/minshi/medailab/datamining/AwaizN/Trained_Model_weights/',type=str,
+    parser.add_argument('--task', default='./Trained_Model_weights/',type=str,
                         help='finetune from checkpoint')
     parser.add_argument('--global_pool', action='store_true')
     parser.set_defaults(global_pool=True)
@@ -111,14 +109,14 @@ def get_args_parser():
                         help='Use class token instead of global pool for classification')
 
     # Dataset parameters
-    parser.add_argument('--data_path', default='/minshi/medailab/shilab/FairVision/Glaucoma/', type=str,
+    parser.add_argument('--data_path', default='./Glaucoma/', type=str,
                         help='dataset path')
     parser.add_argument('--nb_classes', default=2, type=int,
                         help='number of the classification types')
 
-    parser.add_argument('--output_dir', default='/minshi/medailab/datamining/AwaizN/logs',
+    parser.add_argument('--output_dir', default='./logs',
                         help='path where to save, empty for no saving')
-    parser.add_argument('--log_dir', default='/minshi/medailab/datamining/AwaizN/logs',
+    parser.add_argument('--log_dir', default='.N/logs',
                         help='path where to tensorboard log')
     parser.add_argument('--device', default='cuda',
                         help='device to use for training / testing')
@@ -308,12 +306,11 @@ def main(args):
     loss_scaler = NativeScaler()
 
     if mixup_fn is not None:
-        # smoothing is handled with mixup label transform
         criterion = SoftTargetCrossEntropy()
     elif args.smoothing > 0.:
-        criterion = torch.nn.CrossEntropyLoss()#torch.nn.BCEWithLogitsLoss()#LabelSmoothingCrossEntropy(smoothing=args.smoothing)
+        criterion = torch.nn.CrossEntropyLoss()
     else:
-        criterion = torch.nn.CrossEntropyLoss() #torch.nn.BCEWithLogitsLoss()#
+        criterion = torch.nn.CrossEntropyLoss()
 
     print("criterion = %s" % str(criterion))
 
@@ -376,14 +373,13 @@ def main(args):
 
 if __name__ == '__main__':
     args = get_args_parser()
-    args, unknown = args.parse_known_args()  #args = args.parse_args()
-    # Print parsed arguments to check if they are correct
+    args, unknown = args.parse_known_args()
     print("Parsed arguments: ", args)
 
     if 'LOCAL_RANK' in os.environ:
         args.local_rank = int(os.environ['LOCAL_RANK'])
     else:
-        args.local_rank = 0  # Default to 0 if LOCAL_RANK is not set
+        args.local_rank = 0
 
     print(f"Local rank: {args.local_rank}")
     if args.output_dir:

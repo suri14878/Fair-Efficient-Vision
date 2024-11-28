@@ -63,7 +63,7 @@ def RetFound_TeacherModel():
             drop_path_rate=0.1,
             global_pool=True,
         )
-    checkpoint_path = '/minshi/medailab/datamining/AwaizN/Trained_Model_weights/checkpoint-best.pth'
+    checkpoint_path = './checkpoint-best.pth'
     checkpoint = torch.load(checkpoint_path, map_location='cpu')
     
     print("Load pre-trained checkpoint from: %s" % checkpoint_path)
@@ -244,7 +244,7 @@ def train_teacher_student(logger,teacher_model, student_model, optimizer_teacher
         optimizer_teacher = optim.AdamW(teacher_model.parameters(), lr=1e-5)   
         optimizer_student = optim.AdamW(student_model.parameters(), lr=1e-4)   
 
-    best_val_accuracy = 0.0   # Track best validation accuracy
+    best_val_accuracy = 0.0 
     best_tech_val_accuracy = 0.0
     accuracy_history = []
     for epoch in range(epochs):
@@ -262,15 +262,13 @@ def train_teacher_student(logger,teacher_model, student_model, optimizer_teacher
                 lr_sched.adjust_learning_rate(optimizer_teacher, data_iter_step / len(train_loader) + epoch, lr = 1e-3)
                 lr_sched.adjust_learning_rate(optimizer_student, data_iter_step / len(train_loader) + epoch, lr = 1e-3)
             
-            # Forward pass through teacher and student models
             teacher_outputs, teacher_logit = teacher_model(inputs)
             student_outputs, student_logit = student_model(inputs)
 
-            # Compute combined loss (distillation + supervised)
             loss = combined_loss(student_outputs, teacher_outputs,teacher_logit,student_logit, labels)
             scaler = torch.cuda.amp.GradScaler()
             scaler.scale(loss).backward(create_graph=False)
-            scaler.unscale_(optimizer_teacher)  # unscale the gradients of optimizer's assigned params in-place
+            scaler.unscale_(optimizer_teacher) 
             scaler.unscale_(optimizer_student)
             teacher_norm = torch.nn.utils.clip_grad_norm_(teacher_model.parameters(), 3)
             student_norm = torch.nn.utils.clip_grad_norm_(student_model.parameters(), 1)
@@ -305,7 +303,7 @@ def train_teacher_student(logger,teacher_model, student_model, optimizer_teacher
             accuracy_history.append(val_metrics)
             if val_metrics['auroc'] > best_val_accuracy:
                 best_val_accuracy = val_metrics['accuracy']
-                torch.save(student_model.state_dict(), output_directory + 'best_student_model.pth')   # Save best student model
+                torch.save(student_model.state_dict(), output_directory + 'best_student_model.pth')  
                 torch.save(teacher_model.state_dict(), output_directory + 'best_teacher_model.pth')
                 logger.info(f"Best model saved at epoch {epoch+1} with accuracy: {best_val_accuracy:.4f}, Precision : {val_metrics['precision']}, AUROC : {val_metrics['auroc']}")
             if teacher_metrics['auroc'] > best_tech_val_accuracy:
@@ -313,45 +311,40 @@ def train_teacher_student(logger,teacher_model, student_model, optimizer_teacher
                 torch.save(teacher_model.state_dict(), output_directory + 'best_teacher_model.pth')
                 logger.info(f"Best model saved at epoch {epoch+1} with accuracy: {best_tech_val_accuracy:.4f}, Precision : {teacher_metrics['precision']}, AUROC : {teacher_metrics['auroc']}")    
             accuracy_df = pd.DataFrame(accuracy_history)
-#             logging.getLogger().handlers[0].flush()
     if test_loader:
-        test_metrics = evaluate_model(student_model, test_loader)   # Evaluate on test set
+        test_metrics = evaluate_model(student_model, test_loader) 
         logger.info(f"Test Metrics: {test_metrics}")
     return accuracy_df
 
 
 # In[9]:
 
-
-# ============================
-# 6. Evaluation Function for Validation/Testing Phase
-# ============================
 def evaluate_model(model, dataloader):
     
-    model.eval()   # Set the model to evaluation mode
+    model.eval()  
     
     all_labels = []
     all_preds_probs = []
 
-    device = next(model.parameters()).device   # Get the device of the current model
+    device = next(model.parameters()).device  
     
-    with torch.no_grad():   # Disable gradient calculation during evaluation
+    with torch.no_grad(): 
         
         for inputs, labels in dataloader:
             
             inputs = inputs.to(device)
             output,_ = model(inputs)
-            outputs_probs = torch.softmax(output, dim=1)   # Get probabilities
+            outputs_probs = torch.softmax(output, dim=1)   
             
             all_labels.append(labels)
-            all_preds_probs.append(outputs_probs.cpu())   # Move predictions to CPU
+            all_preds_probs.append(outputs_probs.cpu()) 
 
     
-    all_labels = torch.cat(all_labels)   # Concatenate all true labels into a single tensor
-    all_preds_probs = torch.cat(all_preds_probs)   # Concatenate all predicted probabilities into a single tensor
+    all_labels = torch.cat(all_labels) 
+    all_preds_probs = torch.cat(all_preds_probs) 
 
     
-    metrics_result = calculate_metrics(all_labels, all_preds_probs)   # Calculate evaluation metrics
+    metrics_result = calculate_metrics(all_labels, all_preds_probs)
     
     return metrics_result
 
@@ -370,25 +363,19 @@ def Student_Model():
         layer_decay=0.5
     )
     optimizer = torch.optim.AdamW(param_groups,weight_decay=0.02, lr=0.001)
-#     loss_scaler = NativeScaler()
-#     criterion = torch.nn.CrossEntropyLoss()
     loss_scaler = NativeScaler()
     load_model(False,False, model_without_ddp=model_without_ddp, optimizer=optimizer,loss_scaler = loss_scaler)
     return model, optimizer, loss_scaler
 
 def setup_logger():
-    logger = logging.getLogger('my_logger')  # Create or get logger
-    logger.setLevel(logging.DEBUG)  # Set the log level to DEBUG or any level you prefer
+    logger = logging.getLogger('my_logger')  
+    logger.setLevel(logging.DEBUG) 
 
-    # Create a file handler to write log messages to a file
-    file_handler = logging.FileHandler(output_directory  + 'Student_log.txt')  # Specify your log file name
-    file_handler.setLevel(logging.DEBUG)  # Set file handler level, can be different from logger level
-
-    # Create a formatter and attach it to the file handler
+    file_handler = logging.FileHandler(output_directory  + 'Student_log.txt')
+    file_handler.setLevel(logging.DEBUG)  
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     file_handler.setFormatter(formatter)
 
-    # Add the file handler to the logger
     logger.addHandler(file_handler)
     
     return logger
@@ -398,25 +385,18 @@ def setup_logger():
 
 if __name__ == '__main__':
     Data_Image_size = 200
-    output_directory = '/minshi/medailab/datamining/AwaizN/Student_stuff/'
-#     torch.cuda.set_per_process_memory_fraction(0.3, 0)  # Adjust the fraction
-    torch.backends.cudnn.benchmark = True  # Enable cuDNN autotuner
-#     torch.cuda.set_per_process_memory_fraction(0.9)  # Set max memory usage for each process
-    torch.cuda.memory_summary(device=None, abbreviated=False)  # Check current memory status
+    output_directory = './Student_Model/'
+    torch.backends.cudnn.benchmark = True 
+    torch.cuda.memory_summary(device=None, abbreviated=False)  
     Teacher_model_train, teacher_optimizer, Teacher_loss_scaler = RetFound_TeacherModel()
     Student_Model_train, student_optimizer,Student_loss_scaler = Student_Model()
     loss_scaler = NativeScaler()
     writer = SummaryWriter(log_dir=output_directory + "Student_tensorboard")
-#     logger = logging.getLogger(__name__)
-#     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s',
-#     handlers=[logging.StreamHandler(), logging.FileHandler(output_directory  + 'Student_log.txt')])
     logger = setup_logger()
-#     logger = logging.getLogger(output_directory + 'Student_log.txt')
 
     logger.info("Starting training...")
-#     logging.getLogger().handlers[0].flush()
-    root_dirs1 = '/minshi/medailab/shilab/FairVision/Glaucoma/'
-    root_dirs2 = '/minshi/medailab/shilab/FairVision/DR/'
+    root_dirs1 = './Glaucoma/'
+    root_dirs2 = './DR/'
     root_dirs = [root_dirs1, root_dirs2]
     train_loader, val_loader, test_loader = build_combined_dataloaders(root_dirs=root_dirs, image_size = 200)
     accuracy_df = train_teacher_student(logger, Teacher_model_train, Student_Model_train,teacher_optimizer,student_optimizer, Teacher_loss_scaler,

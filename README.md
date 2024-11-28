@@ -92,7 +92,7 @@ We would like to express our gratitude to the **Harvard Ophthalmology AI Lab** f
 |-----------------------------|--------|---------------------------------------|
 | **RETFound (Teacher)**          | 81.0%  | Strong baseline without fairness      |
 | **ViT-Base (Student)**          | 85.5%  | Efficient student model               |
-| **Fair Student Model**          | 87.6%  | Fair, efficient student model         |
+| **Fair Student Model**          | 87.6%  | Fair and efficient student model      |
 
 </div>
 
@@ -122,6 +122,10 @@ We would like to express our gratitude to the **Harvard Ophthalmology AI Lab** f
 </div>
 
 ---
+
+## Models Weights
+
+The Model Weights for RetFound trained on Glaucoma Dataset and Vit-base model trained on Glaucoma and Diabetic Retinopathy can be accessed via this [Link to Model Weights](https://drive.google.com/drive/folders/1DhXhEjqUsccYNVr-zET084l5V1kZyT4H?usp=sharing)
 
 ## Acknowledgements
 
