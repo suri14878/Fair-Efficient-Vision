@@ -155,16 +155,6 @@ These papers provided valuable techniques and methodologies that were essential 
 
 ---
 
-## Contributors
-
-| ![Profile Picture](https://via.placeholder.com/50) Profile Picture | Name           |
-|----------------------------------------------------|----------------|
-| ![Profile Picture](https://github.com/Awaiz27) | Awaiz Noor    |
-| ![Profile Picture](https://github.com/zohaibhaccan) | Zohaib Hassan        |
-| ![Profile Picture](https://github.com/suri14878) | Surender Kumar |
-
----
-
 ## Citation
 
 If you use this project, please cite as follows:
