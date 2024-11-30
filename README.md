@@ -36,6 +36,8 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 - **Goal**: Treat similar individuals equitably and reduce disparities across demographic groups.
 - **Fairness Metrics**: Address biases in Race, Gender, Language, Marital Status, and Ethnicity.
 
+![Project Screenshot](https://github.com/Awaiz27/Fair-Efficient-Vision/blob/main/Project_pipeline.png)
+
 ---
 
 ## Dataset Description
