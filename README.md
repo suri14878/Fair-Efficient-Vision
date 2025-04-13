@@ -9,7 +9,7 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 ## Objectives
 
 1. **Model Performance**:
-   - Train a ViT-Large (teacher) model using a glaucoma dataset to establish a robust baseline.
+   - Train a RetFOund ViT-Large Encoder (teacher) model using a glaucoma dataset to establish a robust baseline.
    - Use knowledge distillation to train a compact ViT-Base (student) model on a combined glaucoma and DR dataset.
    - Achieve comparable or improved diagnostic performance with the student model (AUROC).
 
@@ -35,6 +35,8 @@ This project focuses on leveraging Vision Transformer (ViT) models for the detec
 - **Methodology**: Based on graph smoothing via Laplacian regularization.
 - **Goal**: Treat similar individuals equitably and reduce disparities across demographic groups.
 - **Fairness Metrics**: Address biases in Race, Gender, Language, Marital Status, and Ethnicity.
+
+![Project Screenshot](https://github.com/Awaiz27/Fair-Efficient-Vision/blob/main/Project_pipeline.png)
 
 ---
 
@@ -125,7 +127,7 @@ We would like to express our gratitude to the **Harvard Ophthalmology AI Lab** f
 
 ## Models Weights
 
-The Model Weights for RetFound trained on Glaucoma Dataset and Vit-base model trained on Glaucoma and Diabetic Retinopathy can be accessed via this [Link to Model Weights](https://drive.google.com/drive/folders/1DhXhEjqUsccYNVr-zET084l5V1kZyT4H?usp=sharing)
+The Model Weights for RetFound Teacher Model trained on Glaucoma Dataset, and Vit-base student Model trained on both Glaucoma and Diabetic Retinopathy can be accessed via this [Link to Model Weights](https://drive.google.com/drive/folders/1DhXhEjqUsccYNVr-zET084l5V1kZyT4H?usp=sharing)
 
 ## Acknowledgements
 
@@ -165,6 +167,6 @@ GitHub.https://github.com/Awaiz27/Fair-Efficient-Vision
 
 ## License
 
-This project is licensed under the Apache License 2.0.
+This project is licensed under the MIT License.
 
 
